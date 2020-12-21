@@ -11,7 +11,7 @@ type TreeNode struct {
 	right *TreeNode
 }
 
-//Insert ...
+// Insert ...
 func (t *TreeNode) Insert(num int) (string, error) {
 	if t == nil {
 		return "", errors.New("Tree is nil")
@@ -35,4 +35,44 @@ func (t *TreeNode) Insert(num int) (string, error) {
 		return t.right.Insert(num)
 	}
 	return "",nil
+}
+
+
+// Find ...
+func (t *TreeNode) Find(value int) (string, error) {
+	if t == nil {
+		return "", errors.New("Tree is nil")
+	}
+	if t.value == value {
+		return "Found value at the root", nil
+	} 
+	if t.value < value {
+		return t.right.Find(value)
+	}
+	if t.value > value {
+		return t.left.Find(value)
+	}
+	return "", nil
+}
+
+// FindMax ...
+func (t *TreeNode) FindMax() (int, error) {
+	if t == nil {
+		return 0, errors.New("Tree is nil")
+	}
+	if t.right == nil {
+		return t.value, nil
+	}
+	return t.right.FindMax()
+}
+
+// FindMin ...
+func (t *TreeNode) FindMin() (int, error) {
+	if t == nil {
+		return 0, errors.New("Tree is nil")
+	}
+	if t.left == nil {
+		return t.value, nil
+	}
+	return t.left.FindMin()
 }
